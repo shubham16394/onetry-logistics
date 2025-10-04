@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import QuoteModal from './components/QuoteModal';
 
 export default function Home() {
@@ -11,7 +12,16 @@ export default function Home() {
       {/* Navigation */}
       <nav className="bg-blue-600 text-white p-4 sticky top-0 z-40">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold">OneTry Logistics</div>
+          <div className="flex items-center space-x-3">
+            <Image 
+              src="/onetry.jpg" 
+              alt="OneTry Logistics Logo" 
+              width={40} 
+              height={40} 
+              className="rounded-full"
+            />
+            <div className="text-2xl font-bold">OneTry Logistics</div>
+          </div>
           <div className="hidden md:flex space-x-6">
             <a href="#home" className="hover:text-blue-200">Home</a>
             <a href="#about" className="hover:text-blue-200">About</a>
@@ -24,6 +34,15 @@ export default function Home() {
       {/* Homepage Section */}
       <section id="home" className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
+          <div className="flex justify-center mb-6">
+            <Image 
+              src="/onetry.jpg" 
+              alt="OneTry Logistics Logo" 
+              width={120} 
+              height={120} 
+              className="rounded-full border-4 border-white shadow-lg"
+            />
+          </div>
           <h1 className="text-5xl font-bold mb-4">OneTry Logistics</h1>
           <p className="text-2xl mb-8 text-blue-100">Tried Once. Trusted Forever.</p>
           <button 
