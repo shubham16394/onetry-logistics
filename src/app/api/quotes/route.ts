@@ -30,7 +30,21 @@ export async function GET(request: Request) {
 
     return Response.json({
       success: true,
-      quotes: quotes || [],
+      quotes: (quotes || []).map(quote => ({
+        id: quote.id,
+        companyName: quote.company_name,
+        contactPersonName: quote.contact_person,
+        emailAddress: quote.email,
+        contactNumber: quote.phone,
+        pickupLocation: quote.pickup_location,
+        dropLocation: quote.drop_location,
+        natureOfGoods: quote.goods_description,
+        weight: quote.weight,
+        typeOfPacking: quote.packing_type,
+        typeOfLoad: quote.load_type,
+        dimensions: [quote.length, quote.width, quote.height].filter(Boolean).join(' x ') || 'Not specified',
+        submittedAt: new Date(quote.created_at).toLocaleString()
+      })),
       pagination: {
         page,
         limit,

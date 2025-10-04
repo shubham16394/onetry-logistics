@@ -10,18 +10,18 @@ export async function POST(request: Request) {
       .from('quotes')
       .insert([{
         company_name: data.companyName,
-        contact_person: data.contactPerson,
-        email: data.email,
-        phone: data.phone,
+        contact_person: data.contactPersonName,
+        email: data.emailAddress,
+        phone: data.contactNumber,
         pickup_location: data.pickupLocation,
         drop_location: data.dropLocation,
-        goods_description: data.goodsDescription,
+        goods_description: data.natureOfGoods,
         weight: data.weight,
-        packing_type: data.packingType,
-        load_type: data.loadType,
-        length: data.length || null,
-        width: data.width || null,
-        height: data.height || null,
+        packing_type: data.typeOfPacking,
+        load_type: data.typeOfLoad,
+        length: null, // Will parse dimensions later
+        width: null,
+        height: null,
       }])
       .select()
       .single();

@@ -40,6 +40,21 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
+    // Log the received data for debugging (optional)
+    console.log('Received quote data:', {
+      companyName: data.companyName,
+      contactPersonName: data.contactPersonName,
+      emailAddress: data.emailAddress,
+      contactNumber: data.contactNumber,
+      pickupLocation: data.pickupLocation,
+      dropLocation: data.dropLocation,
+      natureOfGoods: data.natureOfGoods,
+      weight: data.weight,
+      typeOfPacking: data.typeOfPacking,
+      typeOfLoad: data.typeOfLoad,
+      dimensions: data.dimensions
+    });
+    
     // Simulate successful save
     const quoteId = Date.now().toString();
     
