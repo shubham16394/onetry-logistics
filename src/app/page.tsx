@@ -1,103 +1,230 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import QuoteModal from './components/QuoteModal';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <nav className="bg-blue-600 text-white p-4 sticky top-0 z-40">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="text-2xl font-bold">OneTry Logistics</div>
+          <div className="hidden md:flex space-x-6">
+            <a href="#home" className="hover:text-blue-200">Home</a>
+            <a href="#about" className="hover:text-blue-200">About</a>
+            <a href="#services" className="hover:text-blue-200">Services</a>
+            <a href="#contact" className="hover:text-blue-200">Contact</a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Homepage Section */}
+      <section id="home" className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold mb-4">OneTry Logistics</h1>
+          <p className="text-2xl mb-8 text-blue-100">Tried Once. Trusted Forever.</p>
+          <button 
+            onClick={() => setIsQuoteModalOpen(true)}
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-xl transition duration-300 transform hover:scale-105"
+          >
+            Request a Quote
+          </button>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section id="about" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">About Us</h2>
+          
+          {/* Mission Statement */}
+          <div className="mb-12">
+            <div className="flex items-center mb-4">
+              <span className="text-3xl mr-3">🚚</span>
+              <h3 className="text-2xl font-semibold text-gray-800">Mission Statement</h3>
+            </div>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              At OneTry Logistics, our mission is to deliver safe, damage-free, and on-time logistics solutions at competitive prices. 
+              Backed by over 26 years of experience and a trusted network, we are committed to earning lasting trust by ensuring 
+              every shipment reflects our reliability, responsibility, and promise of value.
+            </p>
+          </div>
+
+          {/* Vision Statement */}
+          <div className="mb-12">
+            <div className="flex items-center mb-4">
+              <span className="text-3xl mr-3">🌍</span>
+              <h3 className="text-2xl font-semibold text-gray-800">Vision Statement</h3>
+            </div>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Our vision is to build OneTry Logistics into a nationally and globally recognized brand, trusted for innovation, 
+              professionalism, and customer-first service. We aspire to move beyond transactions to long-term partnerships, 
+              adopt emerging technologies, and expand step by step into new markets. By staying adaptable, competitive, and 
+              future-ready, we aim to set the benchmark in logistics and become the preferred partner for industries worldwide.
+            </p>
+          </div>
+
+          {/* Why Choose OneTry Logistics */}
+          <div>
+            <h3 className="text-2xl font-semibold text-gray-800 mb-6">Why Choose OneTry Logistics?</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">Legacy of 26 Years</h4>
+                <p className="text-gray-600">Decades of proven expertise in logistics operations.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">Trusted Network</h4>
+                <p className="text-gray-600">Reliable, vetted transport partners across India.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">On-Time & Damage-Free Deliveries</h4>
+                <p className="text-gray-600">Every consignment handled with care and commitment.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">Value for Money</h4>
+                <p className="text-gray-600">Competitive pricing without compromising quality.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">Customer-First Philosophy</h4>
+                <p className="text-gray-600">Building long-term relationships, not just completing orders.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h4 className="font-semibold text-blue-600 mb-2">Future-Ready</h4>
+                <p className="text-gray-600">Evolving with technology and market demands.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Services</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Tailored Vehicle Solutions</h3>
+              <p className="text-gray-600">
+                We carefully evaluate your shipment requirements - pick-up and drop locations, nature of goods, weight, 
+                load type, and dimensions - to provide the best-suited vehicle for efficient and safe transport.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Damage-Free & On-Time Delivery</h3>
+              <p className="text-gray-600">
+                Every shipment is handled with precision by our trusted transporters, ensuring safe and punctual delivery every time.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">End-to-End Shipment Monitoring</h3>
+              <p className="text-gray-600">
+                We track your shipment from pickup to delivery, keeping you informed and ensuring accountability at every step.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Warehousing for Small Consignments</h3>
+              <p className="text-gray-600">
+                Our secure storage facilities allow you to manage small shipments flexibly, reducing logistics hassles and ensuring safety.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Professional Loading & Unloading</h3>
+              <p className="text-gray-600">
+                Our trained labor team ensures goods are loaded and unloaded efficiently, minimizing risk of damage and delays.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Dedicated Client Support</h3>
+              <p className="text-gray-600">
+                We are available around the clock to serve your logistics needs, answer queries, and provide guidance, ensuring complete reliability.
+              </p>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-lg md:col-span-2 lg:col-span-3">
+              <h3 className="text-xl font-semibold text-blue-600 mb-3">Consultation & Planning</h3>
+              <p className="text-gray-600">
+                We advise on the most efficient logistics approach for your business, optimizing routes, vehicle choice, 
+                and scheduling for cost-effective operations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Contact Us</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Get in Touch</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-blue-600">Headquarters</h4>
+                  <p className="text-gray-600">
+                    #212/10, 3rd floor, Shankariah Gowda Building,<br />
+                    Anchepalya, Nagasandra Post, Tumkur Road,<br />
+                    Bangalore - 560073
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-600">Branch Office</h4>
+                  <p className="text-gray-600">Kanpur</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-600">Phone Numbers</h4>
+                  <p className="text-gray-600">
+                    7348998743 (BLR)<br />
+                    9795443012 (KNP)
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-600">Email</h4>
+                  <p className="text-gray-600">onetrylogistics@gmail.com</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Quick Quote Request</h3>
+              <button 
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+              >
+                Request a Quote
+              </button>
+              <p className="text-sm text-gray-500 mt-4 text-center">
+                Click to open our detailed quote request form
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-blue-800 text-white py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-lg font-semibold">OneTry Logistics</p>
+          <p className="text-blue-200 mt-2">Tried Once. Trusted Forever.</p>
+          <p className="text-sm text-blue-300 mt-4">
+            © 2024 OneTry Logistics. All rights reserved.
+          </p>
+          
+          {/* Admin Link */}
+          <div className="mt-4">
+            <a 
+              href="/admin/quotes" 
+              className="text-blue-300 hover:text-blue-100 text-sm underline"
+            >
+              Admin: View Quote Requests
+            </a>
+          </div>
+        </div>
       </footer>
+
+      {/* Quote Modal */}
+      <QuoteModal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)} />
     </div>
   );
 }
