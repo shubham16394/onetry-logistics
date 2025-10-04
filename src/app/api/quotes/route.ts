@@ -1,48 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { readFile } from 'fs/promises';
-import { existsSync } from 'fs';
-import path from 'path';
+import { supabase } from '../../../../lib/supabase';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
-    
-    const quotesFilePath = path.join(process.cwd(), 'data', 'quotes.json');
-    
-    if (!existsSync(quotesFilePath)) {
-      return NextResponse.json({ 
-        quotes: [], 
-        total: 0, 
-        page: 1, 
-        totalPages: 0 
-      });
+    const offset = (page - 1) * limit;
+
+    // Get total count
+    const { count } = await supabase
+      .from('quotes')
+      .select('*', { count: 'exact', head: true });
+
+    // Get paginated quotes
+    const { data: quotes, error } = await supabase
+      .from('quotes')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return Response.json(
+        { success: false, message: 'Failed to fetch quotes' },
+        { status: 500 }
+      );
     }
 
-    const fileContent = await readFile(quotesFilePath, 'utf-8');
-    const allQuotes = JSON.parse(fileContent);
-    
-    // Pagination
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const quotes = allQuotes.slice(startIndex, endIndex);
-    
-    const totalPages = Math.ceil(allQuotes.length / limit);
-
-    return NextResponse.json({
-      quotes,
-      total: allQuotes.length,
-      page,
-      totalPages,
-      hasNext: page < totalPages,
-      hasPrev: page > 1
+    return Response.json({
+      success: true,
+      quotes: quotes || [],
+      pagination: {
+        page,
+        limit,
+        total: count || 0,
+        totalPages: Math.ceil((count || 0) / limit)
+      }
     });
-
   } catch (error) {
-    console.error('Error reading quotes:', error);
-    return NextResponse.json(
-      { success: false, message: 'Failed to load quotes' },
+    console.error('Error fetching quotes:', error);
+    return Response.json(
+      { success: false, message: 'Failed to fetch quotes' },
       { status: 500 }
     );
   }
